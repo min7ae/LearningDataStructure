@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "screenout.h": "c",
+        "cusmanager.h": "c",
+        "common.h": "c"
+    }
+}

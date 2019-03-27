@@ -13,10 +13,7 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": {
                 "fileLocation": [
                     "relative",
@@ -40,7 +37,10 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": {
                 "fileLocation": [
                     "relative",
