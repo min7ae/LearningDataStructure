@@ -6,13 +6,11 @@
 */
 
 //구조체 정의
-struct _node
+typedef struct _node
 {
     int key;
     struct _node *next;
 } node_t;
-
-typedef struct _node node_t;
 
 // 초기화
 node_t *head = NULL, *tail = NULL;
