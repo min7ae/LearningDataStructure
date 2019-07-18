@@ -20,7 +20,7 @@ int main(){
         for (int j = 0; j <= i-2; j++)
         {
             p[i] += p[j];
-        }    
+        }
     }
     
     cout << p[n] << '\n';
