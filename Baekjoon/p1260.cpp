@@ -6,67 +6,68 @@
 #include <vector>
 #include <stack>
 #include <queue>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 
 using namespace std;
 
-// for DFS
-bool chkDFS[1001] = {false, };
-void dfs(int x, vector< vector<int> > &v);
-void pushDFS(int a, int b, vector< vector<int> > &v); 
+vector<int> a[1001];
+bool check[1001];
 
-// for BFS
-bool chkBFS[1001] = {false, };
-void bfs(int x, vector< vector<int> > &v); 
-void pushBFS(int a, int b, vector< vector<int> > &v);
-
-int main(){
-    int n, m, v;
-    cin >> n >> m >> v;
-
-    vector< vector<int> > dfsNode(n+1);
-    
-    // dfsNode.assign(n+1);
-
-    vector< vector<int> > bfsNode(n+1);
-    // bfsNode.assign(n+1);
-
-    for (int i = 0; i < m; i++)
+void dfs(int node){
+    check[node] = true;
+    printf("%d ", node);
+    for (int i = 0; i < a[node].size(); i++)
     {
-        int a, b;
-        cin >> a >> b;
-        // cout << a << " " << b << endl;
-        pushDFS(a, b, dfsNode);
-        pushBFS(a, b, bfsNode);
-    }
-    
-    // DFS
-    dfs(v, dfsNode);
-
-    // BFS
-    // bfs(v, bfsNode);
-    return 0;
+        int next = a[node][i];
+        if(check[next] == false){
+            dfs(next);
+        }
+    }   
 }
 
-void pushDFS(int a, int b, vector< vector<int> > &v){
-    v.at(a).push_back(b);
-    v.at(b).push_back(a);
-}
+void bfs(int start){
+    queue<int> q;
+    memset(check, false, sizeof(check));
+    check[start] = true;
+    q.push(start);
 
-
-void pushBFS(int a, int b, vector< vector<int> > &v){
-    v.at(a).push_back(b);
-    v.at(b).push_back(a);
-}
-
-
-void dfs(int x, vector< vector<int> > &v){
-    chkDFS[x] = true;
-    printf("%d ", x);
-    for (int i = 0; i < v[x].size(); i++)
+    while (!q.empty())
     {
-        int y = v[x][i];
-        if(chkDFS[y] == false){
-            dfs(y, v);
+        int node = q.front();
+        q.pop();
+        printf("%d ", node);
+        for(int i = 0; i < a[node].size(); i++){
+            int next = a[node][i];
+            if(check[next] == false){
+                check[next] = true;
+                q.push(next);
+            }
         }
     }
+}
+
+int main(){
+    int n, m, start;
+    cin >> n >> m >> start;
+    for (int i = 0; i < m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        sort(a[i].begin(), a[i].end());
+    }
+    
+    dfs(start);
+    puts("");
+    bfs(start);
+    puts("");
+
+    return 0;
 }
