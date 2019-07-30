@@ -23,24 +23,24 @@ int main(){
     int n, m, v;
     cin >> n >> m >> v;
 
-    vector< vector<int> > dfsNode;
+    vector< vector<int> > dfsNode(n+1);
     
-    dfsNode.assign(n+1);
+    // dfsNode.assign(n+1);
 
-    vector< vector<int> > bfsNode;
+    vector< vector<int> > bfsNode(n+1);
     // bfsNode.assign(n+1);
 
     for (int i = 0; i < m; i++)
     {
         int a, b;
         cin >> a >> b;
-        cout << a << " " << b << endl;
+        // cout << a << " " << b << endl;
         pushDFS(a, b, dfsNode);
         pushBFS(a, b, bfsNode);
     }
     
     // DFS
-    // dfs(v, dfsNode);
+    dfs(v, dfsNode);
 
     // BFS
     // bfs(v, bfsNode);
