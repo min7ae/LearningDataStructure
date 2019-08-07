@@ -5,7 +5,8 @@
         "common.h": "c",
         "vector": "cpp",
         "xstring": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "cstdio": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

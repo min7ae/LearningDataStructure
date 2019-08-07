@@ -45,8 +45,11 @@ int main(){
             maxRes[i] = maxRes[i-1];
         } else {
             tmp += toCalcul;
-            int tmpMax = max(tmpRes[i], tmp);
-            maxRes[i] = max(maxRes[i-1], tmpMax);
+
+            int tmpMax1 = max(tmpRes[i], tmp);
+            int tmpMax2 = max(maxRes[i-1], tmpMax1);
+            maxRes[i] = max(tmpMax2, maxRes[lastIndex]);
+            lastIndex = i;
         }
     }
     cout << maxRes[n];
