@@ -11,20 +11,20 @@ const int MAX_NUM = 100000;
 pair<bool, int> p[MAX_NUM];
 
 void printPair(int n){
-    cout << p[n].first << " " << p[n].second << '\n';
+    cout << "n: " << n << " sec: " << p[n].second << '\n';
 }
 
 void bfs(int n, int k){
-    queue<pair<bool, int> > q;
+    queue<int> q;
     int sec = 0;
-    p[n].first = true; p[n].second = n;
-    q.push(p[n]);
+    p[n].first = true; p[n].second = sec++;
+    q.push(n);
+
     printPair(n);
-    
     while (p[k].first == false)
     {
-        int x = q.front().second;
-        cout << "x " << x << endl;
+        int x = q.front();
+        cout << "queue에서 " << x << "추출, x+1, x-1, x*2를 구함= " << x+1<< " " << x-1 << " " << x*2<< endl;
         q.pop();
         
         int y1 = x+1; int y2 = x-1; int y3 = x*2;
@@ -42,30 +42,29 @@ void bfs(int n, int k){
         {
             y3 = x;
         }
-
+        cout << "방문시작, 하지 않았다면 queue에 집어넣고 그때의 좌표와 sec을 출력" << endl;
         // 방문했는지 확인
+        // 만약 방문하지 않았다면 방문하고 queue에 집어넣는다.
         if(p[y1].first == false) {
             p[y1].first = true;
-            p[y1].second = y1;
+            p[y1].second = p[x].second+1;
             printPair(y1);
-            q.push(p[y1]);
+            q.push(y1);
         }
         if(p[y2].first == false) {
             p[y2].first = true;
-            p[y2].second = y2;
+            p[y2].second = p[x].second+1;
             printPair(y2);
-            q.push(p[y2]);
+            q.push(y2);
         }
         if(p[y3].first == false) {
             p[y3].first = true;
-            p[y3].second = y3;
+            p[y3].second = p[x].second+1;
             printPair(y3);
-            q.push(p[y3]);
+            q.push(y3);
         }
-        cout << sec << endl;
-        sec++;
     }
-    cout << sec << '\n';
+    cout << p[k].second << '\n';
 }
 
 int main(){
