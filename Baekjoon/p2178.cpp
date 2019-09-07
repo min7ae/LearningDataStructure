@@ -30,14 +30,14 @@ int main(){
     int j = 1;
     queue<pair<int, int> > q;
 
-    chk[i][j] = {true, 0};
+    chk[i][j] = {true, 1};
     q.push(make_pair(i, j));
     while (!q.empty())
     {
         i = q.front().first;
         j = q.front().second;
         q.pop();
-        cout << i << " " << j << endl;
+        // cout << i << " " << j << " " << chk[i][j].second << endl;
         if (maps[i+1][j] == 1)
         {
             int ni = i+1;
@@ -50,7 +50,7 @@ int main(){
                 q.push(make_pair(ni, nj));
             }
         }
-        else if (maps[i][j+1] == 1)
+        if (maps[i][j+1] == 1)
         {
             int ni = i;
             int nj = j+1;
@@ -62,7 +62,7 @@ int main(){
                 q.push(make_pair(ni, nj));
             }
         }
-        else if (maps[i-1][j] == 1)
+        if (maps[i-1][j] == 1)
         {
             int ni = i-1;
             int nj = j;
@@ -74,7 +74,7 @@ int main(){
                 q.push(make_pair(ni, nj));
             }
         }
-        else if(maps[i][j-1] == 1)
+        if(maps[i][j-1] == 1)
         {
             int ni = i;
             int nj = j-1;
