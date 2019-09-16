@@ -49,11 +49,12 @@ int main(){
         z = q.front().z;
 
         q.pop();
-        cout << i << " " << j << " " << chk[i][j][z].second << endl;
+        cout << i << " " << j << " " << z << " " << chk[i][j][z].second << endl;
         for (int dxy = 0; dxy < 4; dxy++)
         {
             int ni = i + di[dxy];
             int nj = j + dj[dxy];
+            
             if (ni < 1 | ni > n | nj < 1 | nj > m) 
             {
                 continue;
@@ -77,10 +78,9 @@ int main(){
                 /* 아직 1층이니? */
                 if (z == 0){
                     /* 2층으로 올려주고, */
-                    z++;
-                    chk[ni][nj][z].first = true;
-                    chk[ni][nj][z].second = chk[i][j][z].second + 1;
-                    q.push({ni, nj, z});
+                    chk[ni][nj][z+1].first = true;
+                    chk[ni][nj][z+1].second = chk[i][j][z+1].second + 1;
+                    q.push({ni, nj, z+1});
                 }
             }
         }
