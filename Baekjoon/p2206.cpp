@@ -11,7 +11,8 @@ using namespace std;
     maps 경로인데, maps를 한 겹 더 씌운다. 
 */
 pair<bool, int> chk[1001][1001][2];
-int maps[1001][1001][2];
+int maps[1001][1001];
+bool maps_z = false;
 int di[] = {1, -1, 0, 0};
 int dj[] = {0, 0, 1, -1};
 
@@ -67,6 +68,7 @@ int main(){
             {
                 /* 방문하고, */
                 chk[ni][nj][z].first = true;
+                
                 /* 거리를 +1 증가시킨다. */
                 chk[ni][nj][z].second = chk[i][j][z].second + 1;
                 /* queue에 집어넣자. */
