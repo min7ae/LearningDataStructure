@@ -7,25 +7,33 @@
 
 using namespace std;
 
-const int MAX = 12;
+const int MAX = 10;
 int d[MAX] = {0, };
+
+// idx = 현재 위치, n = 최대 위치
+int go(int idx, int n) {
+    // 최대 위치 보다 더 커지면
+    if (idx > n) {
+        return 0;
+    }
+    int res = 0;
+    if (idx == n) {
+        return res;
+    }
+    // 다음 위치로 1, 2, 3칸 이동 할 수 있음.
+    for (int i=1; i<=3; i++){
+        res += go(idx+i, n);
+    }
+    return res;
+}
 
 int main(){
     int n;
     cin >> n;
-
-    d[1] = 1;
-    d[2] = 2;
-    d[3] = 4;
-    for (int i = 4; i <= MAX; i++)
-    {
-        d[i] = d[i-1] + d[i-2] + d[i-3];
+    for(int i=0; i<n; i++) {
+        cin >> d[i];
+        cout << go(0, d[i]) << '\n';
     }
-    while (n--)
-    {
-        int k;
-        cin >> k;
-        cout << d[k] << '\n';
-    }
+    
     return 0;
 }

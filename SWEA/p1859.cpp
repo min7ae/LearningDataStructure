@@ -57,44 +57,45 @@ int main(int argc, char** argv)
 	for(test_case = 1; test_case <= T; ++test_case)
 	{
         int n;
+        vector <int> v;
+        map <int, int> results;
+        map <int, int>::iterator iter;
+        int maxResult = 0;
         cin >> n;
-        vector<int> v;
-
-        // 돈 넣은 횟수
-        int inputCount = 0;
-        // 돈을 넣을 box
-        map<int, int> inputBox;
-        map<int, int>::iterator iter;
-        // 물건을 팔고 받은 돈
-        int money = 0;
         for(int i=0; i<n; i++){
-            v.push_back(n);
+            int input;
+            cin >> input;
+            v.push_back(input);
         }
 
-        for(int i=0; i<n-2; i++) {
-            // 상승하는 부분
-            if (v[i] <= v[i+1]){
-                if (inputBox.find(key) == true) {
-                    int getValue = inputBox
+        for (int i=0; i<n-1; i++) {
+            // 크다면
+            if(v[i] <= v[i+1]) {
+                if (results.count(v[i]) > 0 ) {
+                    results[v[i]] += 1;
+                } else {
+                    results[v[i]] = 1;
                 }
-                inputBox.insert()
-                inputCount += 1;
             } else {
-                // 넣을 돈이 있다.
-                if (inputBox > 0) {
-                    // 현재 가격을 더한다.
-                    int currentValue = v[i];
-                    money += currnetValue * inputCount;
-                    inputBox = 0;
+                // 작다면 다 더하자
+                if (results.size() > 0) {
+                    for (iter = results.begin(); iter != results.end(); ++iter) {
+                        int value = (v[i] - iter->first) * iter->second;
+                        maxResult += value;
+                    }
+                    results.clear();
                 }
-                // 없다면 아무것도 하지않음.
             }
         }
-        // 마지막에 넣어야 할 돈이 남아있나?
-        if (inputBox > 0) {
-            
+        // 다 끝나고 아직 남아있다면
+        if (results.size() > 0) {
+            for (iter = results.begin(); iter != results.end(); ++iter) {
+                int value = (v[n-1] - iter->first) * iter->second;
+                maxResult += value;
+            }
+            results.clear();
         }
-
+        cout << "#" << test_case << " " << maxResult << endl;
 	}
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
