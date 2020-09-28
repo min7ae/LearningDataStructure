@@ -43,11 +43,36 @@ void qSort(vector<int> &v, int start, int end) {
 
 int getReminder(vector<int> &v, int target) {
     // v는 오름차순 정렬 되었다고 가정
-    
+    int result = 0;
+    for (int i : v) {
+        int s = 0;
+        if (i < target) {
+            s = i - target;
+        }
+        result += s;
+    }
+    return result;
+}
+
+// return index
+int binarySearch(vector<int> &v, int target, int begin, int end) {
+    // 못 찾음. 
+    if (begin > end) {
+        return -1;
+    }
+    int mid = (begin + end) / 2;
+    if (getReminder(v, mid) == target) {
+        return mid;
+    } else if (getReminder(v, mid) > target) {
+        return binarySearch(v, target, begin, mid-1);
+    } else {
+        return binarySearch(v, target, mid+1, end);
+    }
 }
 
 int main() {
     int n, target;
+    int answer = 0;
     cin >> n >> target;
     vector<int> stick(n);
     for (int i=0; i<n; i++) {
@@ -55,11 +80,12 @@ int main() {
     }
 
     qSort(stick, 0, stick.size()-1);
-    int th = stick.front();
-    int sum = 0;
-    for (int i=0; i<stick.size(); i++) {
-        sum += stick[i] - th;
+
+    int begin = 0;
+    int end = stick.back();
+    while (begin <= end) {
+        int mid = (begin + end) / 2;
     }
-    bool isMinTh = false;
+
     return 0;
 }
