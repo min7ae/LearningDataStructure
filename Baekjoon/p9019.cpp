@@ -7,8 +7,19 @@
 #include <queue>
 #include <vector>
 #include <string>
+#include <cmath>
 
 using namespace std;
+
+vector<int> makeIntVector(int n) {
+    vector<int> result;
+    while (n>10) {
+        result.push_back(n%10);
+        n = n / 10;
+    }
+    // 1234 -> result {4, 3, 2, 1};
+    return result;
+}
 
 pair<int, char> DSLR(int n, int i) {
     int result = 0;
@@ -38,19 +49,46 @@ pair<int, char> DSLR(int n, int i) {
     }
     case 2: {
         // L
-        string tmp = to_string(n);
-        string rS = tmp.substr(1) + tmp[0];
-        result = stoi(rS.c_str());
+        vector<int> nV = makeIntVector(n);
+        // 1234 -> size: 4, 1000
+        // nV = {4, 3, 2, 1};
+        int result = 0;
+        int digit = nV.size()-1;
+        // digit = 3;
+        for (int i=nV.size()-2; i>=0; i--) {
+            result += nV[i]*pow(10, digit);
+            // i = 2, 1, 0
+            // result , i=2
+            // 2 * (10**3) 2000
+            // result, i=1
+            // 3 * (10**2) 2300
+            // result, i=0;
+            // 4 * (10**1) 2340
+            digit -= 1;
+        }
+        result += nV[nV.size()-1];
         resultC = 'L';
         break;
     }
     case 3: {
         // R
-        string tmp = to_string(n);
-        // 맨 뒤 하나
-        string rS = tmp.back() + tmp.substr(0, tmp.size()-2);
-        result = stoi(rS.c_str());
-        
+        vector<int> nV = makeIntVector(n);
+        // 1234 -> size: 4, 1000
+        // nV = {4, 3, 2, 1};
+        int digit = nV.size()-1;
+        int result = nV[0]*pow(10, digit);
+        digit -= 1;
+        for (int i=nV.size()-1; i>=1; i--) {
+            result += nV[i]*pow(10, digit);
+            // i = 2, 1, 0
+            // result , i=2
+            // 2 * (10**3) 2000
+            // result, i=1
+            // 3 * (10**2) 2300
+            // result, i=0;
+            // 4 * (10**1) 2340
+            digit -= 1;
+        }
         resultC = 'R';
         break;
     }
